@@ -5,6 +5,7 @@ import { AppConfig } from './config/app.config';
 import { globalValidationPipe } from './common/pipes/global.validation.pipe';
 import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 import { ResponseInterceptor } from './common/interceptors/response.interceptor';
+import { PinoLogger } from 'nestjs-pino/PinoLogger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -16,9 +17,11 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
   const appConfig = configService.getOrThrow<AppConfig>('app');
 
+  const logger = await app.resolve(PinoLogger);
+
   await app.listen(appConfig.port || 3000);
-  console.log(
-    `🚀 App running on port ${appConfig.port} in ${appConfig.nodeEnv} mode.`,
+  logger.info(
+    `App running on port ${appConfig.port} in ${appConfig.nodeEnv} mode.`,
   );
 }
 void bootstrap();
