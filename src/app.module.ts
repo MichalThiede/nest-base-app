@@ -5,6 +5,9 @@ import { ConfigModule } from '@nestjs/config';
 import { envValidationSchema } from './config/env.validation';
 import { appConfigFactory } from './config/app.config.factory';
 import { LoggerModule } from './logger/logger.module';
+import { GlobalThrottlerModule } from './common/throttler/throttler.module';
+import { APP_GUARD } from '@nestjs/core';
+import { ThrottlerGuard } from '@nestjs/throttler';
 
 const nodeEnv = process.env.NODE_ENV || 'development';
 
@@ -20,8 +23,15 @@ const nodeEnv = process.env.NODE_ENV || 'development';
       load: [appConfigFactory],
     }),
     LoggerModule,
+    GlobalThrottlerModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
+  ],
 })
 export class AppModule {}
