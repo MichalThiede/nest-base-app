@@ -1,7 +1,8 @@
-import { LoggerOptions } from 'pino';
+import { Params } from 'nestjs-pino';
 
-export const pinoConfig: LoggerOptions = {
+export const pinoConfig: Params['pinoHttp'] = {
   level: process.env.LOG_LEVEL ?? 'info',
+  genReqId: (req) => req.headers['x-request-id'] as string,
   transport:
     process.env.NODE_ENV !== 'production'
       ? {
