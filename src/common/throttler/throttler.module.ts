@@ -3,12 +3,14 @@ import { ThrottlerModule } from '@nestjs/throttler';
 
 @Module({
   imports: [
-    ThrottlerModule.forRoot([
-      {
-        limit: 100,
-        ttl: 60,
-      },
-    ]),
+    ThrottlerModule.forRoot({
+      throttlers: [
+        {
+          ttl: 60000,
+          limit: 3,
+        },
+      ],
+    }),
   ],
 })
 export class GlobalThrottlerModule {}

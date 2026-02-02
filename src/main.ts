@@ -9,14 +9,10 @@ import { PinoLogger } from 'nestjs-pino/PinoLogger';
 import { requestIdMiddleware } from './common/middleware/request-id.middleware';
 import { helmetMiddleware } from './common/middleware/helmet.middleware';
 import { compressionMiddleware } from './common/middleware/compression.middleware';
-import { ThrottlerGuard } from '@nestjs/throttler';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  const throttlerGuard = app.get(ThrottlerGuard);
-
-  app.useGlobalGuards(throttlerGuard);
   app.useGlobalPipes(globalValidationPipe);
   app.useGlobalFilters(new HttpExceptionFilter());
   app.useGlobalInterceptors(new ResponseInterceptor());
