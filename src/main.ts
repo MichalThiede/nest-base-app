@@ -9,9 +9,14 @@ import { PinoLogger } from 'nestjs-pino/PinoLogger';
 import { requestIdMiddleware } from './common/middleware/request-id.middleware';
 import { helmetMiddleware } from './common/middleware/helmet.middleware';
 import { compressionMiddleware } from './common/middleware/compression.middleware';
+import { SwaggerModule } from '@nestjs/swagger';
+import { swaggerConfig } from './config/swagger.config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  const document = SwaggerModule.createDocument(app, swaggerConfig());
+  SwaggerModule.setup('api', app, document);
 
   app.useGlobalPipes(globalValidationPipe);
   app.useGlobalFilters(new HttpExceptionFilter());
