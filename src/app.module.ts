@@ -8,6 +8,7 @@ import { LoggerModule } from './logger/logger.module';
 import { GlobalThrottlerModule } from './common/throttler/throttler.module';
 import { APP_GUARD } from '@nestjs/core';
 import { ThrottlerGuard } from '@nestjs/throttler';
+import { HealthModule } from './common/health/health.module';
 
 const nodeEnv = process.env.NODE_ENV || 'development';
 
@@ -24,6 +25,7 @@ const nodeEnv = process.env.NODE_ENV || 'development';
     }),
     LoggerModule,
     GlobalThrottlerModule,
+    HealthModule,
   ],
   controllers: [AppController],
   providers: [
