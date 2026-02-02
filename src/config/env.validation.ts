@@ -7,9 +7,7 @@ export const envValidationSchema = Joi.object({
 
   APP_NAME: Joi.string().required(),
 
-  LOG_LEVEL: Joi.string()
-    .valid('debug', 'info', 'warn', 'error')
-    .default('info'),
+  LOG_LEVEL: Joi.string().valid('debug', 'info', 'warn', 'error').default('info'),
 
   DB_HOST: Joi.string().required(),
   DB_PORT: Joi.number().port().required(),

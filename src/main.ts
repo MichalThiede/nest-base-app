@@ -31,8 +31,6 @@ async function bootstrap() {
   const logger = await app.resolve(PinoLogger);
 
   await app.listen(appConfig.port || 3000);
-  logger.info(
-    `App running on port ${appConfig.port} in ${appConfig.nodeEnv} mode.`,
-  );
+  logger.info(`App running on port ${appConfig.port} in ${appConfig.nodeEnv} mode.`);
 }
 void bootstrap();
