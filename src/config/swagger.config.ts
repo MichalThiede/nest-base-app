@@ -1,6 +1,6 @@
-import { DocumentBuilder } from '@nestjs/swagger';
+import { DocumentBuilder, OpenAPIObject } from '@nestjs/swagger';
 
-export const swaggerConfig = () =>
+export const swaggerConfig = (): Omit<OpenAPIObject, 'paths'> =>
   new DocumentBuilder()
     .setTitle('NestJS Template API')
     .setDescription('API documentation for the template project')

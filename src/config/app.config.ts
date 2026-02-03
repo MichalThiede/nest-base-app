@@ -1,4 +1,4 @@
-export interface AppConfig {
+export interface IAppConfig {
   nodeEnv: 'development' | 'test' | 'production';
   port: number;
   name: string;

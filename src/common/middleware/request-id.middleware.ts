@@ -1,7 +1,8 @@
 import { v4 as uuidv4 } from 'uuid';
+// eslint-disable-next-line no-redeclare
 import { Request, Response, NextFunction } from 'express';
 
-export function requestIdMiddleware(req: Request, res: Response, next: NextFunction) {
+export function requestIdMiddleware(req: Request, res: Response, next: NextFunction): void {
   const requestId = req.headers['x-request-id'] ?? uuidv4();
 
   req.headers['x-request-id'] = requestId;
