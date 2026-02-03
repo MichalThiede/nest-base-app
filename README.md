@@ -31,6 +31,43 @@
 $ npm install
 ```
 
+## Conventional Commits
+
+To initialize husky & commit convention run:
+
+```bash
+npm run prepare
+```
+
+All commits must follow the Conventional Commits standard.
+
+```bash
+<type>(<scope - optional>): <short description>
+```
+
+### Common types:
+
+- feat – new feature
+- fix – bug fix
+- refactor – code change without behavior change
+- chore – tooling / config
+- docs – documentation
+- test – tests
+- style – formatting (no logic change)
+
+### Rules:
+
+- use lowercase for the description
+- use present tense
+
+### Examples:
+
+```bash
+feat(auth): add login validation
+fix(api): handle null response
+chore: update eslint config
+```
+
 ## Compile and run the project
 
 ```bash
