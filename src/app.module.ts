@@ -11,6 +11,8 @@ import { ThrottlerGuard } from '@nestjs/throttler';
 import { HealthModule } from './common/health/health.module';
 import { VersionModule } from './common/version/version.module';
 import { PrismaModule } from './database/prisma/prisma.module';
+import { MongoModule } from './database/mongo/mongo.module';
+import { mongoConfig } from './config/mongo.config';
 
 const nodeEnv = process.env.NODE_ENV || 'development';
 
@@ -23,13 +25,14 @@ const nodeEnv = process.env.NODE_ENV || 'development';
       validationOptions: {
         abortEarly: true,
       },
-      load: [appConfigFactory],
+      load: [appConfigFactory, mongoConfig],
     }),
     LoggerModule,
     GlobalThrottlerModule,
     HealthModule,
     VersionModule,
     PrismaModule,
+    MongoModule,
   ],
   controllers: [AppController],
   providers: [
