@@ -10,6 +10,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { ThrottlerGuard } from '@nestjs/throttler';
 import { HealthModule } from './common/health/health.module';
 import { VersionModule } from './common/version/version.module';
+import { PrismaModule } from './database/prisma/prisma.module';
 
 const nodeEnv = process.env.NODE_ENV || 'development';
 
@@ -28,6 +29,7 @@ const nodeEnv = process.env.NODE_ENV || 'development';
     GlobalThrottlerModule,
     HealthModule,
     VersionModule,
+    PrismaModule,
   ],
   controllers: [AppController],
   providers: [
