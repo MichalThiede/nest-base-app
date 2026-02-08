@@ -13,6 +13,7 @@ import { VersionModule } from './common/version/version.module';
 import { PrismaModule } from './database/prisma/prisma.module';
 import { MongoModule } from './database/mongo/mongo.module';
 import { mongoConfig } from './config/mongo.config';
+import { UsersModule } from './modules/users/users.module';
 
 const nodeEnv = process.env.NODE_ENV || 'development';
 
@@ -33,6 +34,7 @@ const nodeEnv = process.env.NODE_ENV || 'development';
     VersionModule,
     PrismaModule,
     MongoModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [
