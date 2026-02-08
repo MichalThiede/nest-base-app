@@ -5,13 +5,16 @@ import { UserDto } from './dto/user.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserMapper } from './mapper/user.mapper';
 import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
+import { Roles } from 'src/common/decorators/roles.decorator';
+import { RolesGuard } from 'src/common/guards/roles.guard';
 
 @Controller('users')
-@UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 export class UsersController {
   public constructor(private readonly usersService: UsersService) {}
 
   @Get()
+  @Roles('ADMIN', 'SUPPORT')
   public async findAll(): Promise<UserDto[]> {
     const users = await this.usersService.findAll();
     if (!users || users.length === 0) {
@@ -21,6 +24,7 @@ export class UsersController {
   }
 
   @Get(':id')
+  @Roles('ADMIN', 'SUPPORT')
   public async findOne(@Param('id') id: string): Promise<UserDto> {
     const user = await this.usersService.findById(id);
     if (!user) {
@@ -30,6 +34,7 @@ export class UsersController {
   }
 
   @Post()
+  @Roles('ADMIN')
   public async create(@Body() dto: CreateUserDto): Promise<UserDto> {
     return UserMapper.toDto(await this.usersService.create(dto));
   }
