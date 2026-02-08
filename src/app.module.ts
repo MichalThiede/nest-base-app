@@ -14,6 +14,7 @@ import { PrismaModule } from './database/prisma/prisma.module';
 import { MongoModule } from './database/mongo/mongo.module';
 import { mongoConfig } from './config/mongo.config';
 import { UsersModule } from './modules/users/users.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 const nodeEnv = process.env.NODE_ENV || 'development';
 
@@ -35,6 +36,7 @@ const nodeEnv = process.env.NODE_ENV || 'development';
     PrismaModule,
     MongoModule,
     UsersModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [
