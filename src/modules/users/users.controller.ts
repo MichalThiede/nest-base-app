@@ -1,11 +1,13 @@
 // eslint-disable-next-line no-redeclare
-import { Controller, Get, Param, Post, Body, NotFoundException } from '@nestjs/common';
+import { Controller, Get, Param, Post, Body, NotFoundException, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UserDto } from './dto/user.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserMapper } from './mapper/user.mapper';
+import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
 
 @Controller('users')
+@UseGuards(JwtAuthGuard)
 export class UsersController {
   public constructor(private readonly usersService: UsersService) {}
 
