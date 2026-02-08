@@ -10,7 +10,7 @@ export class AuthController {
   public constructor(private readonly authService: AuthService) {}
 
   @Post('login')
-  public async login(@Body() dto: LoginDto): Promise<UserDto> {
-    return this.authService.validateUser(dto.email, dto.password);
+  public async login(@Body() dto: LoginDto): Promise<{ user: UserDto; token: string }> {
+    return this.authService.login(dto);
   }
 }
