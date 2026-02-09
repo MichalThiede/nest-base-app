@@ -6,7 +6,7 @@ import { UserDto } from '../users/dto/user.dto';
 import { UserMapper } from '../users/mapper/user.mapper';
 import { LoginDto } from './dto/login.dto';
 import { JwtService } from '@nestjs/jwt';
-import { Role } from '../users/domain/role.model';
+import { Role } from './domain/role.model';
 import { randomUUID } from 'crypto';
 
 @Injectable()

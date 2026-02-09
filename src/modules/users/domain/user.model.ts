@@ -1,4 +1,4 @@
-import { Role } from './role.model';
+import { Role } from '../../auth/domain/role.model';
 
 export interface IUser {
   id: string;

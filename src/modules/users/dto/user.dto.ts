@@ -1,4 +1,4 @@
-import { Role } from '../domain/role.model';
+import { Role } from '../../auth/domain/role.model';
 
 export class UserDto {
   public id: string;

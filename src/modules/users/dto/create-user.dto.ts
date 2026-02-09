@@ -1,5 +1,5 @@
 import { IsEmail, IsEnum, IsString } from 'class-validator';
-import * as roleModel from '../domain/role.model';
+import * as roleModel from '../../auth/domain/role.model';
 import { Role } from '@prisma/client';
 
 export class CreateUserDto {
