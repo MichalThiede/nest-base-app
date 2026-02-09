@@ -21,7 +21,9 @@ export class JwtAuthGuard implements CanActivate {
     }
 
     try {
-      const payload = this.jwtService.verify(token);
+      const payload = this.jwtService.verify(token, {
+        secret: process.env.JWT_ACCESS_SECRET,
+      });
       request.user = payload; // sub i role
       return true;
       // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
