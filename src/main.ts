@@ -15,6 +15,15 @@ import { swaggerConfig } from './config/swagger.config';
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule);
 
+  const nodeEnv = process.env.NODE_ENV ?? 'development';
+
+  if (nodeEnv === 'development') {
+    app.enableCors({
+      origin: ['http://localhost:4200'],
+      credentials: true,
+    });
+  }
+
   const document = SwaggerModule.createDocument(app, swaggerConfig());
   SwaggerModule.setup('api', app, document);
 
