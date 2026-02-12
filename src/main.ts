@@ -11,6 +11,7 @@ import { helmetMiddleware } from './common/middleware/helmet.middleware';
 import { compressionMiddleware } from './common/middleware/compression.middleware';
 import { SwaggerModule } from '@nestjs/swagger';
 import { swaggerConfig } from './config/swagger.config';
+import cookieParser from 'cookie-parser';
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule);
@@ -33,6 +34,7 @@ async function bootstrap(): Promise<void> {
   app.use(requestIdMiddleware);
   app.use(helmetMiddleware);
   app.use(compressionMiddleware);
+  app.use(cookieParser());
 
   const configService = app.get(ConfigService);
   const appConfig = configService.getOrThrow<IAppConfig>('app');
