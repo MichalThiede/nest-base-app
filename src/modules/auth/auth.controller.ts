@@ -7,6 +7,7 @@ import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
 import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
 import { GetUser } from 'src/common/decorators/get-user.decorator';
+import { OriginGuard } from 'src/common/guards/origin.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -22,14 +23,15 @@ export class AuthController {
     res.cookie('refreshToken', tokens.refreshToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
+      sameSite: 'strict', // important for CSRF protection
       path: '/auth/refresh',
-      maxAge: 7 * 24 * 60 * 60 * 1000,
+      maxAge: Number(process.env.JWT_REFRESH_EXPIRES_IN),
     });
 
     return { accessToken: tokens.accessToken };
   }
 
+  @UseGuards(OriginGuard)
   @Post('refresh')
   public async refresh(
     @Req() req: Request,
@@ -41,9 +43,9 @@ export class AuthController {
     res.cookie('refreshToken', tokens.refreshToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
+      sameSite: 'strict', // important for CSRF protection
       path: '/auth/refresh',
-      maxAge: 7 * 24 * 60 * 60 * 1000,
+      maxAge: Number(process.env.JWT_REFRESH_EXPIRES_IN),
     });
 
     return { accessToken: tokens.accessToken };
