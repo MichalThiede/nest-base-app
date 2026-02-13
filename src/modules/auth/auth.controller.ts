@@ -25,7 +25,7 @@ export class AuthController {
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'strict', // important for CSRF protection
       path: '/auth/refresh',
-      maxAge: Number(process.env.JWT_REFRESH_EXPIRES_IN),
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
     return { accessToken: tokens.accessToken };
@@ -45,7 +45,7 @@ export class AuthController {
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'strict', // important for CSRF protection
       path: '/auth/refresh',
-      maxAge: Number(process.env.JWT_REFRESH_EXPIRES_IN),
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
     return { accessToken: tokens.accessToken };
