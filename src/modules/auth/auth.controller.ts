@@ -53,8 +53,15 @@ export class AuthController {
 
   @UseGuards(JwtAuthGuard)
   @Post('logout')
-  public async logout(@GetUser('sub') userId: string): Promise<{ success: boolean }> {
+  public async logout(
+    @GetUser('sub') userId: string,
+    @Res({ passthrough: true }) res: Response,
+  ): Promise<{ success: boolean }> {
     await this.authService.logout(userId);
+
+    res.clearCookie('refreshToken', {
+      path: '/auth/refresh',
+    });
 
     return { success: true };
   }
