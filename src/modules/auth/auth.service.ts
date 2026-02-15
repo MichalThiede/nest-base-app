@@ -8,9 +8,10 @@ import { LoginDto } from './dto/login.dto';
 import { JwtService } from '@nestjs/jwt';
 import { Role } from './domain/role.model';
 import { randomUUID } from 'crypto';
+import { IAuthServiceAdapter } from './adapter/auth.adapter';
 
 @Injectable()
-export class AuthService {
+export class AuthService implements IAuthServiceAdapter {
   public constructor(
     private readonly prisma: PrismaService,
     private readonly jwtService: JwtService,
