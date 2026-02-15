@@ -1,31 +1,36 @@
 import { Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
+import { UserCreateDto } from './dto/user.create.dto';
 import * as bcrypt from 'bcrypt';
-import { IUser } from './domain/user.model';
 import { UsersRepository } from './users.repository';
+import { UserMapper } from './mapper/user.mapper';
+import { UserDto } from './dto/user.dto';
+import { IUsersServiceAdapter } from './adapter/users.adapter';
 
 @Injectable()
-export class UsersService {
+export class UsersService implements IUsersServiceAdapter {
   public constructor(private readonly usersRepo: UsersRepository) {}
 
-  public async findAll(): Promise<IUser[]> {
-    return this.usersRepo.findAll();
+  public async findAll(): Promise<UserDto[]> {
+    const users = await this.usersRepo.findAll();
+    return UserMapper.toDtos(users);
   }
 
-  public async findById(id: string): Promise<IUser | null> {
-    return this.usersRepo.findById(id);
+  public async findById(id: string): Promise<UserDto | null> {
+    const user = await this.usersRepo.findById(id);
+    if (!user) {
+      return null;
+    }
+    return UserMapper.toDto(user);
   }
 
-  public async create(dto: CreateUserDto): Promise<IUser> {
+  public async create(dto: UserCreateDto): Promise<UserDto> {
     const hashedPassword = await bcrypt.hash(dto.password, 10);
+    dto.password = hashedPassword;
 
-    const user = await this.usersRepo.create({
-      email: dto.email,
-      name: dto.name,
-      password: hashedPassword,
-      role: dto.role,
-    });
+    const userEntity = UserMapper.createDtoToDomain(dto);
 
-    return user;
+    const user = await this.usersRepo.create(userEntity);
+
+    return UserMapper.toDto(user);
   }
 }

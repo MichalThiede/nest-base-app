@@ -8,3 +8,10 @@ export interface IUser {
   name: string;
   role: Role;
 }
+
+export interface IUserCreate {
+  email: string;
+  password: string;
+  name: string;
+  role: Role;
+}

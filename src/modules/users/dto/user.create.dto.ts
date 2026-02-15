@@ -2,7 +2,7 @@ import { IsDefined, IsEmail, IsEnum, IsString } from 'class-validator';
 import * as roleModel from '../../auth/domain/role.model';
 import { Role } from '@prisma/client';
 
-export class CreateUserDto {
+export class UserCreateDto {
   @IsDefined()
   @IsEmail()
   public email: string;
