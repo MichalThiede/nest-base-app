@@ -41,7 +41,7 @@ async function bootstrap(): Promise<void> {
 
   const logger = await app.resolve(PinoLogger);
 
-  await app.listen(appConfig.port || 3000);
+  await app.listen(appConfig.port);
   logger.info(`App running on port ${appConfig.port} in ${appConfig.nodeEnv} mode.`);
 }
 void bootstrap();

@@ -16,7 +16,7 @@ import { mongoConfig } from './config/mongo.config';
 import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
 
-const nodeEnv = process.env.NODE_ENV || 'development';
+const nodeEnv = process.env.NODE_ENV;
 
 @Module({
   imports: [
